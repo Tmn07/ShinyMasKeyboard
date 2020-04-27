@@ -1,0 +1,18 @@
+打开sc网页，打开console控制台
+刷新网页，立即粘贴运行如下代码，执行。
+（晚了就不行。刷新就会失效。 游戏过程中没完全测试过，不知道会不会什么时候重新加载）
+
+window.addEventListener('blur', function (e) {
+	e.stopImmediatePropagation();
+}, true);
+document.addEventListener('visibilitychange', function (e) {
+	e.stopImmediatePropagation();
+});
+
+
+1. chrome新建一个书签
+	名称（随意
+	网址：如下代码
+2. 刷新sc页面时，点击此书签即可生效。
+
+javascript: window.addEventListener('blur', function (e) {e.stopImmediatePropagation();}, false);document.addEventListener('visibilitychange', function (e){e.stopImmediatePropagation();});
