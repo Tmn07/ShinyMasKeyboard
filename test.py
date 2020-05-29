@@ -1,9 +1,9 @@
 # coding=utf-8
-from __future__ import print_function
-import pyWinhook as pyHook
+from pyWinhook import HookManager
 from pymouse import PyMouse
 from pykeyboard import PyKeyboard
-import time
+from time import sleep
+from sys import exit
 
 m = PyMouse()
 k = PyKeyboard()
@@ -19,7 +19,7 @@ def MoveAndClick(m, x, y):
   real_x = int(scale*x+LeftUp[0])
   real_y = int(scale*y+LeftUp[1])
   m.move(real_x, real_y)
-  time.sleep(0.02)
+  sleep(0.02)
   m.click(real_x, real_y)
 
 # import os
@@ -32,12 +32,18 @@ def OnKeyboardEvent(event):
   if event.Key == 'Escape':
     exit()
 
+  # pause program
   global stop
   if stop == 1:
     if event.Key == 'Tab':
       stop = 0
     return True
 
+  if event.Key == 'Tab':
+    stop = 1
+    print('stop....')
+
+  # get position
   if event.Key == 'Oem_3':
     global first
     global LeftUp
@@ -58,14 +64,6 @@ def OnKeyboardEvent(event):
     x,y = m.position()
     m.click(x, y)
 
-  if event.Key == 'Tab':
-    # stop()
-    stop = 1
-    print('stop....')
-
-  if event.Key == 'L':
-    x,y = m.position()
-    print(x,y)
 
   # enter
   if event.Key == 'Return':
@@ -110,11 +108,19 @@ def OnKeyboardEvent(event):
     MoveAndClick(m, 82, 509)
 
   print('Key: %s' %  event.Key)
+
+  # test
+  # if event.Key == 'L':
+  #   x,y = m.position()
+  #   print(x,y)
+
   return True
 
 
 if __name__ == '__main__':
-  print('you need to address your window')
+  print('Esc: stop program')
+  print('Tab: pause program')
+  print("press ` on window's Upper left corner and Lower right corner")
 
   first = 1
   scale = 1
@@ -124,7 +130,7 @@ if __name__ == '__main__':
   RightDown = (1366, 871)
 
   # create the hook mananger
-  hm = pyHook.HookManager()
+  hm = HookManager()
   hm.KeyDown = OnKeyboardEvent
   # hook into the mouse and keyboard events
   hm.HookKeyboard()
@@ -133,5 +139,5 @@ if __name__ == '__main__':
   # hm.MouseAllButtonsDown = OnMouseEvent
   # hm.HookMouse()
 
-  import pythoncom
-  pythoncom.PumpMessages()
+  from pythoncom import PumpMessages
+  PumpMessages()
