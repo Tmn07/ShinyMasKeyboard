@@ -4,9 +4,9 @@
 
 图示：
 
-![]( https://tmn07.com/sk1.jpg )
+![]( ./pic/sk1.jpg )
 
-![]( https://tmn07.com/sk2.jpg )
+![]( ./pic/sk2.jpg )
 
 ## 使用说明
 
