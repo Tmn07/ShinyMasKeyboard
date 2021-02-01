@@ -1,13 +1,15 @@
 # coding=utf-8
+
 from pyWinhook import HookManager
-from pymouse import PyMouse
-from pykeyboard import PyKeyboard
+import pyautogui
+
 from time import sleep
 from sys import exit
 
-m = PyMouse()
-k = PyKeyboard()
+# m = PyMouse()
+# k = PyKeyboard()
 
+m = pyautogui
 
 def click(m, x, y):
   real_x = int(scale*x+LeftUp[0])
@@ -18,9 +20,10 @@ def click(m, x, y):
 def MoveAndClick(m, x, y):
   real_x = int(scale*x+LeftUp[0])
   real_y = int(scale*y+LeftUp[1])
-  m.move(real_x, real_y)
+  m.moveTo(real_x, real_y)
   sleep(0.02)
   m.click(real_x, real_y)
+
 
 # import os
 # def stop():

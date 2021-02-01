@@ -46,19 +46,25 @@ Esc：结束程序
 
 ## 安装说明
 
-暂略
+```
+pip install pyautogui pyWinhook
+```
+
+或者使用这里打包好的应用程序 [release页面](https://github.com/qq519043202/ShinyMasKeyboard/releases)
 
 ## 相关第三方库
 
-鼠标(/键盘)操作：[PyUserInput](https://github.com/PyUserInput/PyUserInput)
+鼠标(/键盘)操作：[pyautogui](https://github.com/asweigart/pyautogui)
 
 键盘(/鼠标)监听：[pyWinhook](https://github.com/Tungsteno74/pyWinhook) [Demo](https://github.com/Tungsteno74/pyWinhook/blob/master/pyWinhook/example.py)
+
+旧，已经停止维护的鼠标(/键盘)操作库：[PyUserInput](https://github.com/PyUserInput/PyUserInput)
 
 ## todo
 - [x] 键盘监听
 - [x] 鼠标操作
+- [x] 打包发布
 - [ ] 跨平台(Linux, MacOS?)
-- [ ] 打包发布?
 
 ## 其他
 
