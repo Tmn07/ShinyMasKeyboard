@@ -1,12 +1,18 @@
 # shinymas键盘助手
 
-想起来可以方便Pcup连点，减少鼠标移动花的时间，所以就又改动了一下。
+新加八连休，autofes脚本。
+
+进入到produce后，按 "8" 启动八连休，按 "0" 结束。
+
+在fesTop页面，按 "5" 自动选择彩排easy，第二把刀依次打各裁判，五个周期，正常可以打完5个体力。
 
 图示：
 
 ![]( ./pic/sk1.jpg )
 
 ![]( ./pic/sk2.jpg )
+
+
 
 ## 使用说明
 
@@ -46,24 +52,46 @@ Esc：结束程序
 
 ## 安装说明
 
-```
-pip install pyautogui pyWinhook
+安装参考了[CSDN](https://blog.csdn.net/jiuhu7/article/details/105493201)
+
+```shell
+# 目前仅在window下测试过
+# 使用pymouse库，最好在python38以下版本
+conda create -n py36 python=3.6.12
+conda activate py36
+
+# 下载whl https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyhook
+pip install pyHook-1.5.1-cp36-cp36m-win_amd64.whl
+pip install pyWinhook-1.6.2-cp36-cp36m-win_amd64.whl
+pip install pymouse
+pip install PyUserinput
 ```
 
 或者使用这里打包好的应用程序 [release页面](https://github.com/qq519043202/ShinyMasKeyboard/releases)
 
-## 相关第三方库
+或者[pyautogui](https://github.com/asweigart/pyautogui)操作键鼠更优雅，更方便。但是使用时产生了某个bug，并且打包后的文件体积巨大，难以处理放弃使用了
 
-鼠标(/键盘)操作：[pyautogui](https://github.com/asweigart/pyautogui)
-
-键盘(/鼠标)监听：[pyWinhook](https://github.com/Tungsteno74/pyWinhook) [Demo](https://github.com/Tungsteno74/pyWinhook/blob/master/pyWinhook/example.py)
-
-旧，已经停止维护的鼠标(/键盘)操作库：[PyUserInput](https://github.com/PyUserInput/PyUserInput)
+键盘鼠标监听相关库：[pyWinhook](https://github.com/Tungsteno74/pyWinhook) [Demo](https://github.com/Tungsteno74/pyWinhook/blob/master/pyWinhook/example.py)
 
 ## todo
 - [x] 键盘监听
+
 - [x] 鼠标操作
-- [x] 打包发布
+
+- [x] 执行脚本
+
+- [ ] 录制脚本（有生之年
+
+- [ ] 打包发布
+
+  ```shell
+  pip install PyInstaller
+  pyinstaller -F test.py
+  # 出现了一个之前没有的bug，新版本release还未更新
+  ```
+
+- [ ] 改进代码
+
 - [ ] 跨平台(Linux, MacOS?)
 
 ## 其他

@@ -2,3 +2,5 @@ image/*
 build/*
 dist/*
 *.spec
+__pycache__/*
+test/*
