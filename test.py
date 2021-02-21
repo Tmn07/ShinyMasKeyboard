@@ -18,7 +18,7 @@ m = PyMouse()
 # m = pyautogui
 
 
-def click(k, position):
+def Click(k, position):
   if not position:
     clickHere()
     # x, y = m.position()
@@ -98,7 +98,7 @@ class KMaps():
       event = self.Maps[key]
       event()
     else:
-      # click(self, self.Maps[key])
+      # Click(self, self.Maps[key])
       MoveAndClick(self, self.Maps[key])
 
   def registerKey(self, key, x, y):
@@ -169,8 +169,7 @@ class MyThread(threading.Thread):
           time.sleep(opt)
         if _list:
           # todo: 解耦..
-          # click(k, opt)
-          # print(opt)
+          # Click(k, opt)
           MoveAndClick(k, opt)
 
 
@@ -222,6 +221,21 @@ def OnKeyboardEvent(event):
     pause = 1
     print('程序已暂停')
 
+  # print('MessageName: %s' % event.MessageName)
+  # print('Message: %s' % event.Message)
+  # print('Time: %s' % event.Time)
+  # print('Window: %s' % event.Window)
+  # print('WindowName: %s' % event.WindowName)
+  # print('Ascii: %s' %  event.Ascii, chr(event.Ascii))
+  # print('Key: %s' %  event.Key)
+  # print('KeyID: %s' %  event.KeyID)
+  # print('ScanCode: %s' %  event.ScanCode)
+  # print('Extended: %s' %  event.Extended)
+  # print('Injected: %s' %  event.Injected)
+  # print('Alt %s' %  event.Alt)
+  # print('Transition %s' %  event.Transition)
+  # print('---')
+
   global k
 
   for key in k.Maps:
@@ -232,64 +246,71 @@ def OnKeyboardEvent(event):
 
 
 
+try:
+  
+  print('Esc: stop program')
+  print('Tab: pause program')
+  print("press ` on window's Upper left corner and Lower right corner")
 
-print('Esc: stop program')
-print('Tab: pause program')
-print("press ` on window's Upper left corner and Lower right corner")
+  first = 1
+  pause = 0
 
-first = 1
-pause = 0
+  # todo: 读取上一次定位的结果？
+  # 默认size 
+  LeftUp = (0, 87)
+  RightDown = (1368, 856)
 
-# todo: 读取上一次定位的结果？
-# 默认size 
-LeftUp = (0, 87)
-RightDown = (1368, 856)
+  k = KMaps(LeftUp, RightDown)
 
-k = KMaps(LeftUp, RightDown)
-
-# 坐标比例参考excel内记录
-k.registerKey('Return', 0.926873857, 0.897402597)
-k.registerKey('Oem_7', 0.851919561, 0.918181818)
-k.registerKey('P', 0.952833638, 0.078571429)
-k.registerKey('T', 0.179159049, 0.342207792)
-k.registerKey('Y', 0.49360146,  0.17987013)
-k.registerKey('U', 0.804387569, 0.342207792)
-k.registerKey('V', 0.31809872 , 0.907142857)
-k.registerKey('B', 0.500914077, 0.907142857)
-k.registerKey('N', 0.676416819, 0.907142857)
-k.registerKey('Q', 0.073126143, 0.264285714)
-k.registerKey('A', 0.073126143, 0.491558442)
-k.registerKey('Z', 0.073126143, 0.725324675)
-k.registerKey('Left', 0.285191956, 0.488311688)
-k.registerKey('Right', 0.910420475, 0.488311688)
-k.registerKey('X', 0.311517367, 0.872077922)
-k.registerKey('H', 0.578062157, 0.601948052)
-
-
-myScript_8 = MyScript('八连休', Script_8, 0)
-k.registerScript('8', myScript_8)
-myScript_af = MyScript('autofes', Script_af, 5)
-k.registerScript('5', myScript_af)
-# todo:装载的脚本说明
-
-k.registerEvent('Space', clickHere)
-k.registerEvent('0', stopScript)
-k.registerEvent('Oem_3', setWindow)
-# todo: 暂停和关闭的优先级要提高..
-# k.registerEvent('Escape', exitProgram)
-# k.registerEvent('Tab', pauseProgram)
+  # 坐标比例参考excel内记录
+  k.registerKey('Return', 0.926873857, 0.897402597)
+  k.registerKey('Oem_7', 0.851919561, 0.918181818)
+  k.registerKey('P', 0.952833638, 0.078571429)
+  k.registerKey('T', 0.179159049, 0.342207792)
+  k.registerKey('Y', 0.49360146,  0.17987013)
+  k.registerKey('U', 0.804387569, 0.342207792)
+  k.registerKey('V', 0.31809872 , 0.907142857)
+  k.registerKey('B', 0.500914077, 0.907142857)
+  k.registerKey('N', 0.676416819, 0.907142857)
+  k.registerKey('Q', 0.073126143, 0.264285714)
+  k.registerKey('A', 0.073126143, 0.491558442)
+  k.registerKey('Z', 0.073126143, 0.725324675)
+  k.registerKey('Left', 0.285191956, 0.488311688)
+  k.registerKey('Right', 0.910420475, 0.488311688)
+  k.registerKey('X', 0.311517367, 0.872077922)
+  k.registerKey('H', 0.578062157, 0.601948052)
 
 
-# create the hook mananger
-hm = HookManager()
+  myScript_8 = MyScript('八连休', Script_8, 0)
+  k.registerScript('8', myScript_8)
+  myScript_af = MyScript('autofes', Script_af, 5)
+  k.registerScript('5', myScript_af)
+  # todo:装载的脚本说明
 
-hm.KeyDown = OnKeyboardEvent
-# hook into the mouse and keyboard events
-hm.HookKeyboard()
+  k.registerEvent('Space', clickHere)
+  k.registerEvent('0', stopScript)
+  k.registerEvent('Oem_3', setWindow)
+  # todo: 暂停和关闭的优先级要提高..
+  # k.registerEvent('Escape', exitProgram)
+  # k.registerEvent('Tab', pauseProgram)
 
-# register two callbacks
-# hm.MouseAllButtonsDown = OnMouseEvent
-# hm.HookMouse()
 
-from pythoncom import PumpMessages
-PumpMessages()
+  # create the hook mananger
+  hm = HookManager()
+
+  hm.KeyDown = OnKeyboardEvent
+  # hook into the mouse and keyboard events
+  hm.HookKeyboard()
+
+  # register two callbacks
+  # hm.MouseAllButtonsDown = OnMouseEvent
+  # hm.HookMouse()
+
+  from pythoncom import PumpMessages
+  PumpMessages()
+
+
+except Exception as e:
+  # raise e
+  print(e)
+  print('[BUG]')

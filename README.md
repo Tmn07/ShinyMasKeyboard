@@ -71,6 +71,8 @@ pip install PyUserinput
 
 或者[pyautogui](https://github.com/asweigart/pyautogui)操作键鼠更优雅，更方便。但是使用时产生了某个bug，并且打包后的文件体积巨大，难以处理放弃使用了
 
+[pyautogui](https://github.com/asweigart/pyautogui)点击会有延迟？以前使用pymouse时也碰到过，但是解决了，解决方法未知。
+
 键盘鼠标监听相关库：[pyWinhook](https://github.com/Tungsteno74/pyWinhook) [Demo](https://github.com/Tungsteno74/pyWinhook/blob/master/pyWinhook/example.py)
 
 ## todo
@@ -85,17 +87,22 @@ pip install PyUserinput
 - [ ] 打包发布
 
   ```shell
-  pip install PyInstaller
-  pyinstaller -F test.py
-  # 出现了一个之前没有的bug，新版本release还未更新
+  # pymouse打包可能出出现这个问题, bug1
+  # TypeError: KeyboardSwitch() missing 8 required positional arguments: 'msg', 'vk_code', 'scan_code', 'ascii', 'flags', 'time', 'hwnd', and 'win_name'
+  
+  # 出现了一个之前没有的bug，弃用PyInstaller，改用Nuitka后分发模式的打包还有点问题...
+  nuitka --mingw64 test.py --show-progress # 暂时可自用，分发会有问题。
+  nuitka --mingw64 --follow-imports test.py # 线程中止有问题，分发会有问题
+  nuitka --mingw64 --follow-imports --standalone test.py # bug1
   ```
 
 - [ ] 改进代码
 
-- [ ] 跨平台(Linux, MacOS?)
+- [ ] 跨平台(Linux, MacOs
 
-## 其他
+## other
 
 shinykey.xlsx 为我全屏时各按键的坐标
 
 keepbgm.txt 是参考插件代码，不通过插件实现离开游戏画面保持音乐播放的方式（没地方放就放这里了
+
